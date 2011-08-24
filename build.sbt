@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % "2.0.0-SNAPSHOT",
   "org.scalatra" %% "scalatra-scalate" % "2.0.0-SNAPSHOT",
   "javax.servlet" % "servlet-api" % "2.5" % "provided",
-  "org.eclipse.jetty" % "jetty-webapp" % "7.4.0.RC0" % "jetty"
+  "org.eclipse.jetty" % "jetty-webapp" % "7.4.0.RC0" % "jetty",
+  "org.apache.lucene" % "lucene-core" % "3.3.0"
 )
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
