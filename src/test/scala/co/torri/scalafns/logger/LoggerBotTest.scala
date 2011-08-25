@@ -39,7 +39,7 @@ class IRCProtocolHandlerTest extends ScalaFNSTest {
   trait messageContext extends Context with TestKit with After {
     var received = false
     val actor = TestActorRef(new FakeActor(received = true)).start
-    val irc = new IRCProtocolHandler("irc.freenode.net", "#scala", actor)
+    val irc = new IRCProtocolHandler("#scala", actor)
     
     def after =
       actor.stop

@@ -7,7 +7,7 @@ import jerklib.events.IRCEvent.Type._
 import jerklib.listeners.IRCEventListener
 
 
-class IRCProtocolHandler(_server: String, _channel: String, _bot: ActorRef) {
+class IRCProtocolHandler(_channel: String, _bot: ActorRef) {
   
   def onMessage(channel: String, msg: String, pvt: Boolean = false) =
     if (_channel == channel && !pvt) _bot ! msg
@@ -32,7 +32,7 @@ class IRCProtocolHandler(_server: String, _channel: String, _bot: ActorRef) {
 
 }
 
-class LoggerBot(irc: IRCProtocolHandler) extends Actor {
+class LoggerBot extends Actor {
   
   def receive = {
     case _ => {}
