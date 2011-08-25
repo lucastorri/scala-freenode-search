@@ -9,6 +9,16 @@
     <listener-class>co.torri.scalafns.ws.WebSocketLoader</listener-class>
   </listener>
 
+	<listener>
+    <listener-class>co.torri.scalafns.library.LibrarianLoader</listener-class>
+  </listener>
+
+	<env-entry>
+    <env-entry-name>websocketSearchService</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>/search</env-entry-value>
+	</env-entry>
+
 	<filter>
 		<filter-name>scalatra</filter-name>
 		<filter-class>

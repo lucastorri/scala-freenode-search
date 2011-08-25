@@ -6,13 +6,12 @@ import org.webbitserver._
 
 class WebSocketLoader extends ServletContextListener {
 
-  private val webSocketServer = WebServers.createWebServer(8123)
+  private lazy val _webSocketServer = WebServers.createWebServer(8123)
 
-  override def contextInitialized(e: ServletContextEvent): Unit = {
-    println("loading web sockets server")
-    webSocketServer.add("/search", SearchWebSocket).start
-  }
+  override def contextInitialized(e: ServletContextEvent): Unit =
+    _webSocketServer.add("/search", SearchWebSocket).start
 
   override def contextDestroyed(e: ServletContextEvent): Unit =
-    webSocketServer.stop();
+    _webSocketServer.stop
+
 }

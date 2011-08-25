@@ -1,4 +1,4 @@
-package co.torri.scalafns.actor
+package co.torri.scalafns.library
 
 import co.torri.scalafns.library._
 
