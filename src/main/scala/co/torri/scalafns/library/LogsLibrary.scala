@@ -42,25 +42,9 @@ class IndexWriterFactory(_indexPath: Directory) {
     
 }
 
-//XXX so far this could be a case class
-class ChatLog(val url: URL) {
+case class ChatLog(val url: URL) {
 
   def contents: Source =
     fromURL(url)
 
-  override def equals(o: Any) =
-    o != null && o.isInstanceOf[ChatLog] && o.asInstanceOf[ChatLog].url == url
-
-  override def hashCode =
-    url.hashCode
-
-  override def toString =
-    url.toString
-
-}
-
-object ChatLog {
-  
-  def apply(url: URL) =
-    new ChatLog(url)
 }

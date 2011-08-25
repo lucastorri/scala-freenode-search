@@ -1,32 +1,40 @@
-package co.torri.scalafns.actor
-
-import co.torri.scalafns.library._
+package co.torri.scalafns.library
 
 import akka.testkit._
 import akka.actor._
 import akka.actor.Actor._
 import java.net.URL
 
+import akka.util.duration._
+import akka.testkit.TestKit
 import co.torri.scalafns.ScalaFNSTest
+import co.torri.scalafns.actor._
+import org.specs2.specification._
 
+
+object LibrarianTest {
+  val timeout = 1 second
+}
 
 class LibrarianTest extends ScalaFNSTest {
 
   "when receiving a message to add a log" should {
     "start to index the new log file" in new commonContext {
-      val msg = AddLog(logURL)
-      librarian ! msg
-      //XXX use akka testkit
-      Thread.sleep(100)
+      librarian ! AddLog(logURL)
       
-      there was one (logsLibrary).addLog(ChatLog(logURL))
+      within(LibrarianTest.timeout) {
+        there was one (logsLibrary).addLog(any)
+      }
     }
   }
 
-  trait commonContext extends Context {
+  trait commonContext extends Context with After with TestKit {
     val logURL = new URL("http://this.is.a.test/")
     val logsLibrary = mock[ChatLogsLibrary]
     val librarian = actorOf(new Librarian(logsLibrary)).start
+    
+    def after =
+      librarian.stop
   }
 
 }

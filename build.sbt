@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "javax.servlet" % "servlet-api" % "2.5" % "provided",
   "org.eclipse.jetty" % "jetty-webapp" % "7.4.0.RC0" % "jetty",
   "org.apache.lucene" % "lucene-core" % "3.3.0",
-  "se.scalablesolutions.akka" % "akka-actor" % "1.1.3"
+  "se.scalablesolutions.akka" % "akka-actor" % "1.1.3",
+  "pircbot" % "pircbot" % "1.5.0"
 )
 
 libraryDependencies ++= Seq(
