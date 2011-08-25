@@ -70,13 +70,13 @@ class IRCProtocolHandlerTest extends ScalaFNSTest {
     }
   }
     
-    trait protocolContext extends messageContext {
-      val protocol = irc.protocolHandler
-      val session = mock[Session]
-      val channel = mock[jerklib.Channel]
-      val connectEvent = new IRCEvent("NOTICE AUTH :*** Looking up your hostname", session, CONNECT_COMPLETE)
-      val messageEvent = new MessageEvent(channel, "hello world", "raw data", session, CHANNEL_MESSAGE)
-      val privateMessage = new MessageEvent(channel, "hello world", "raw data", session, PRIVATE_MESSAGE)
-    }
+  trait protocolContext extends messageContext {
+    val protocol = irc.protocolHandler
+    val session = mock[Session]
+    val channel = mock[jerklib.Channel]
+    val connectEvent = new IRCEvent("NOTICE AUTH :*** Looking up your hostname", session, CONNECT_COMPLETE)
+    val messageEvent = new MessageEvent(channel, "hello world", "raw data", session, CHANNEL_MESSAGE)
+    val privateMessage = new MessageEvent(channel, "hello world", "raw data", session, PRIVATE_MESSAGE)
+  }
     
 }
