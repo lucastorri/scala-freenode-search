@@ -40,7 +40,7 @@ class LogsLibraryTest extends ScalaFNSTest {
     val library = new ChatLogsLibrary(factory) 
   }
   
-  case class DocumentMatcher(url: String, content: String) extends Matcher[Document] {
+  case class DocumentMatcher(_url: String, _content: String) extends Matcher[Document] {
     
     private def _success[S <: Document](d: S) =
       MatchSuccess("Document matched", "", MustExpectable(d))
@@ -49,7 +49,7 @@ class LogsLibraryTest extends ScalaFNSTest {
       MatchFailure("", "Document not matched", MustExpectable(d), _failureDetails(d))
       
     private def _failureDetails(d: Document) =
-      FailureDetails((url,content).toString, (_url(d), _content(d)).toString)
+      FailureDetails((_url, _content).toString, (_url(d), _content(d)).toString)
     
     private def _content(d: Document) = {
       val reader = d.getFieldable("contents").readerValue
@@ -61,7 +61,7 @@ class LogsLibraryTest extends ScalaFNSTest {
       d.get("url")
   
     def apply[S <: Document](e: Expectable[S]) =
-      if (_url(e.value) == url && _content(e.value) == content) _success(e.value)
+      if (_url(e.value) == _url && _content(e.value) == _content) _success(e.value)
       else _failure(e.value)
   
   }

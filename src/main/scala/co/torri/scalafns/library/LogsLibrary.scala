@@ -12,10 +12,10 @@ import scala.io.Source._
 import java.io.StringReader
 
 
-class ChatLogsLibrary(factory: IndexWriterFactory) {
+class ChatLogsLibrary(_factory: IndexWriterFactory) {
 
   private def _transaction(f: (IndexWriter) => Unit) = {
-    val writer = factory.newWriter
+    val writer = _factory.newWriter
     f(writer)
     writer.close
   }
@@ -32,13 +32,13 @@ class ChatLogsLibrary(factory: IndexWriterFactory) {
 
 }
 
-class IndexWriterFactory(indexPath: Directory) {
+class IndexWriterFactory(_indexPath: Directory) {
   
   private val _version = LUCENE_31
   private lazy val _config = new IndexWriterConfig(_version, new StandardAnalyzer(_version));
   
   def newWriter =
-    new IndexWriter(indexPath, _config)
+    new IndexWriter(_indexPath, _config)
     
 }
 

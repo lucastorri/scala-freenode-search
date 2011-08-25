@@ -7,10 +7,10 @@ import java.util.Date
 import java.net.URL
 
 
-class Librarian(library: ChatLogsLibrary) extends Actor {
+class Librarian(_library: ChatLogsLibrary) extends Actor {
 
   def receive = {
-    case AddLog(url) => library addLog ChatLog(url)
+    case AddLog(url) => _library addLog ChatLog(url)
     case _ => {}
   }
 
