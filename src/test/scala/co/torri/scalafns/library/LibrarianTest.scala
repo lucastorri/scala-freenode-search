@@ -6,7 +6,7 @@ import akka.actor.Actor._
 import java.net.URL
 
 import akka.util.duration._
-import akka.testkit.TestKit
+import akka.testkit._
 import co.torri.scalafns.ScalaFNSTest
 import co.torri.scalafns.actor._
 import org.specs2.specification._
@@ -28,10 +28,10 @@ class LibrarianTest extends ScalaFNSTest {
     }
   }
 
-  trait commonContext extends Context with After with TestKit {
+  trait commonContext extends Context with TestKit with After {
     val logURL = new URL("http://this.is.a.test/")
     val logsLibrary = mock[ChatLogsLibrary]
-    val librarian = actorOf(new Librarian(logsLibrary)).start
+    val librarian = TestActorRef(new Librarian(logsLibrary)).start
     
     def after =
       librarian.stop

@@ -68,6 +68,5 @@ class LogsLibraryTest extends ScalaFNSTest {
 
   def aDocumentWith(url: String, content: String) =
     DocumentMatcher(url, content)
-    
   
 }
