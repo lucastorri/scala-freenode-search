@@ -10,6 +10,7 @@ import java.net.URI
 import scala.io.Source
 import scala.io.Source._
 import java.io.StringReader
+import org.apache.lucene.index.IndexWriterConfig.OpenMode._
 
 
 class ChatLogsLibrary(_factory: IndexWriterFactory) {
@@ -35,7 +36,7 @@ class ChatLogsLibrary(_factory: IndexWriterFactory) {
 class IndexWriterFactory(_indexPath: Directory) {
   
   private val _version = LUCENE_31
-  private lazy val _config = new IndexWriterConfig(_version, new StandardAnalyzer(_version));
+  private def _config = new IndexWriterConfig(_version, new StandardAnalyzer(_version)).setOpenMode(CREATE_OR_APPEND)
   
   def newWriter =
     new IndexWriter(_indexPath, _config)
