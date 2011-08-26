@@ -12,7 +12,7 @@ class LibrarianLoader extends ServletContextListener {
   
   override def contextInitialized(e: ServletContextEvent): Unit = {
     val indexFolderPath = e.getServletContext.getResource(|) + "lucene"
-    val factory = new IndexWriterFactory(FSDirectory.open(new File(indexFolderPath)))
+    val factory = new IndexFactory(FSDirectory.open(new File(indexFolderPath)))
     val library = new ChatLogsLibrary(factory)
     remote.start("localhost", 9123).register("librarian", actorOf(new Librarian(library)))
   }

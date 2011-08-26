@@ -17,3 +17,5 @@ class Librarian(_library: ChatLogsLibrary) extends Actor {
 }
 
 case class AddLog(logURI: URI)
+
+case class Search(expression: String)

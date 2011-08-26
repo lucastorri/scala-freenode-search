@@ -13,7 +13,7 @@ import java.io.StringReader
 import org.apache.lucene.index.IndexWriterConfig.OpenMode._
 
 
-class ChatLogsLibrary(_factory: IndexWriterFactory) {
+class ChatLogsLibrary(_factory: IndexFactory) {
 
   private def _transaction(f: (IndexWriter) => Unit) = {
     val writer = _factory.newWriter
@@ -33,7 +33,7 @@ class ChatLogsLibrary(_factory: IndexWriterFactory) {
 
 }
 
-class IndexWriterFactory(_indexPath: Directory) {
+class IndexFactory(_indexPath: Directory) {
   
   private val _version = LUCENE_31
   private def _config = new IndexWriterConfig(_version, new StandardAnalyzer(_version)).setOpenMode(CREATE_OR_APPEND)

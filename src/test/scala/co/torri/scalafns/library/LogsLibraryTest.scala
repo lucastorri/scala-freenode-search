@@ -36,7 +36,7 @@ class LogsLibraryTest extends ScalaFNSTest {
     
     val log = mock[ChatLog]
     val writer = mock[IndexWriter]
-    val factory = mock[IndexWriterFactory]
+    val factory = mock[IndexFactory]
     val library = new ChatLogsLibrary(factory) 
   }
   
