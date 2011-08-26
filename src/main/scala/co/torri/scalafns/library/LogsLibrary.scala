@@ -6,7 +6,7 @@ import org.apache.lucene.document._
 import org.apache.lucene.index._
 import org.apache.lucene.store._
 import org.apache.lucene.util.Version._
-import java.net.URL
+import java.net.URI
 import scala.io.Source
 import scala.io.Source._
 import java.io.StringReader
@@ -25,7 +25,7 @@ class ChatLogsLibrary(_factory: IndexWriterFactory) {
     
   private implicit def _chatLog2Document(log: ChatLog): Document = {
     val doc = new Document
-    doc add new Field("url", log.url.toString, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS)
+    doc add new Field("uri", log.uri.toString, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS)
     doc add new Field("contents", new StringReader(log.contents.mkString))
     doc
   }
@@ -42,9 +42,9 @@ class IndexWriterFactory(_indexPath: Directory) {
     
 }
 
-case class ChatLog(val url: URL) {
+case class ChatLog(val uri: URI) {
 
   def contents: Source =
-    fromURL(url)
+    fromURI(uri)
 
 }

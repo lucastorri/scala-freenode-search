@@ -3,7 +3,7 @@ package co.torri.scalafns.library
 import akka.testkit._
 import akka.actor._
 import akka.actor.Actor._
-import java.net.URL
+import java.net.URI
 
 import akka.util.duration._
 import akka.testkit._
@@ -20,7 +20,7 @@ class LibrarianTest extends ScalaFNSTest {
 
   "when receiving a message to add a log" should {
     "start to index the new log file" in new commonContext {
-      librarian ! AddLog(logURL)
+      librarian ! AddLog(logURI)
       
       within(LibrarianTest.timeout) {
         there was one (logsLibrary).addLog(any)
@@ -29,7 +29,7 @@ class LibrarianTest extends ScalaFNSTest {
   }
 
   trait commonContext extends Context with TestKit with After {
-    val logURL = new URL("http://this.is.a.test/")
+    val logURI = new URI("http://this.is.a.test/")
     val logsLibrary = mock[ChatLogsLibrary]
     val librarian = TestActorRef(new Librarian(logsLibrary)).start
     

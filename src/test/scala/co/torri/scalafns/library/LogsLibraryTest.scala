@@ -7,7 +7,7 @@ import org.apache.lucene.document._
 import org.apache.lucene.index._
 import org.apache.lucene.store._
 import scala.io.Source
-import java.net.URL
+import java.net.URI
 import java.io.BufferedReader
 
 import co.torri.scalafns.ScalaFNSTest
@@ -21,17 +21,17 @@ class LogsLibraryTest extends ScalaFNSTest {
   "when adding a log to the library" should {
     "pass it to the lucene index" in new normalContext {
       log.contents returns Source.fromString(docContent)
-      log.url returns new URL(docURL)
+      log.uri returns new URI(docURI)
       factory.newWriter returns writer
       
       library.addLog(log)
       
-      there was one (writer).addDocument(aDocumentWith(docURL, docContent))
+      there was one (writer).addDocument(aDocumentWith(docURI, docContent))
     }
   }
 
   trait normalContext extends Context {
-    val docURL = "http://resource.url"
+    val docURI = "http://resource.uri"
     val docContent = "doc content"
     
     val log = mock[ChatLog]
@@ -40,7 +40,7 @@ class LogsLibraryTest extends ScalaFNSTest {
     val library = new ChatLogsLibrary(factory) 
   }
   
-  case class DocumentMatcher(_url: String, _content: String) extends Matcher[Document] {
+  case class DocumentMatcher(_uri: String, _content: String) extends Matcher[Document] {
     
     private def _success[S <: Document](d: S) =
       MatchSuccess("Document matched", "", MustExpectable(d))
@@ -49,7 +49,7 @@ class LogsLibraryTest extends ScalaFNSTest {
       MatchFailure("", "Document not matched", MustExpectable(d), _failureDetails(d))
       
     private def _failureDetails(d: Document) =
-      FailureDetails((_url, _content).toString, (_url(d), _content(d)).toString)
+      FailureDetails((_uri, _content).toString, (_uri(d), _content(d)).toString)
     
     private def _content(d: Document) = {
       val reader = d.getFieldable("contents").readerValue
@@ -57,16 +57,16 @@ class LogsLibraryTest extends ScalaFNSTest {
       new BufferedReader(reader).readLine
     }
     
-    private def _url(d: Document) =
-      d.get("url")
+    private def _uri(d: Document) =
+      d.get("uri")
   
     def apply[S <: Document](e: Expectable[S]) =
-      if (_url(e.value) == _url && _content(e.value) == _content) _success(e.value)
+      if (_uri(e.value) == _uri && _content(e.value) == _content) _success(e.value)
       else _failure(e.value)
   
   }
 
-  def aDocumentWith(url: String, content: String) =
-    DocumentMatcher(url, content)
+  def aDocumentWith(uri: String, content: String) =
+    DocumentMatcher(uri, content)
   
 }

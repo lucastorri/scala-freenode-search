@@ -4,16 +4,16 @@ import co.torri.scalafns.library._
 
 import akka.actor._
 import java.util.Date
-import java.net.URL
+import java.net.URI
 
 
 class Librarian(_library: ChatLogsLibrary) extends Actor {
 
   def receive = {
-    case AddLog(url) => _library addLog ChatLog(url)
+    case AddLog(uri) => _library addLog ChatLog(uri)
     case _ => {}
   }
 
 }
 
-case class AddLog(logURL: URL)
+case class AddLog(logURI: URI)
