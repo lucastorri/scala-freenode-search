@@ -23,6 +23,10 @@
     <listener-class>co.torri.scalafns.library.LibrarianLoader</listener-class>
   </listener>
 
+	<listener>
+    <listener-class>co.torri.scalafns.logger.LoggerLoader</listener-class>
+  </listener>
+
 	<filter>
 		<filter-name>scalatra</filter-name>
 		<filter-class>

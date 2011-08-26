@@ -5,6 +5,7 @@ import jerklib._
 import jerklib.events._
 import jerklib.events.IRCEvent.Type._
 import jerklib.listeners.IRCEventListener
+import grizzled.slf4j.Logger
 
 
 class IRCProtocolHandler(_channel: String, _bot: ActorRef) {
@@ -13,7 +14,7 @@ class IRCProtocolHandler(_channel: String, _bot: ActorRef) {
     if (_channel == channel && !pvt) _bot ! msg
     
   private def _onMessage(msgEvent: MessageEvent) =
-    onMessage(msgEvent.getChannel.getName, msgEvent.getMessage, msgEvent.isPrivate)
+    onMessage(msgEvent.getChannel.getName, msgEvent.getNick+": "+msgEvent.getMessage, msgEvent.isPrivate)
 
   object protocolHandler extends IRCEventListener {
 
@@ -29,13 +30,14 @@ class IRCProtocolHandler(_channel: String, _bot: ActorRef) {
       }
 
   }
-
 }
 
 class LoggerBot extends Actor {
   
+  private val log = Logger[LoggerBot]
+  
   def receive = {
-    case _ => {}
+    case m => { log.info(m.toString) }
   }
   
 }

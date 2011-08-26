@@ -12,6 +12,7 @@ import org.specs2.specification.After
 import jerklib.events.IRCEvent.Type._
 import org.mockito.Mockito._
 import org.mockito.Matchers._
+import grizzled.slf4j.Logger
 
 
 object IRCProtocolHandlerTest {
