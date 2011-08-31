@@ -18,13 +18,21 @@ object LibrarianTest {
 
 class LibrarianTest extends ScalaFNSTest {
 
-  "when receiving a message to add a log" should {
+  "when receiving a message" should {
     "start to index the new log file" in new commonContext {
       librarian ! AddLog(logURI)
       
       within(LibrarianTest.timeout) {
         there was one (logsLibrary).addLog(any)
       }
+    }
+    
+    "query the index" in new commonContext {
+      val result = ChatLogSearchResult("a query")
+      logsLibrary.searchLogs("a query") returns result
+      
+      val response = librarian !! Search("a query")
+      result must be equalTo(result)
     }
   }
 
