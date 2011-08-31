@@ -19,7 +19,8 @@ libraryDependencies ++= Seq(
   "se.scalablesolutions.akka" % "akka-actor" % "1.1.3",
   "se.scalablesolutions.akka" % "akka-remote" % "1.1.3",
   "org.slf4j" % "slf4j-api" % "1.6.1",
-  "ch.qos.logback" % "logback-classic" % "0.9.29"
+  "ch.qos.logback" % "logback-classic" % "0.9.29",
+  "org.streum" % "configrity_2.9.0" % "0.7.0"
 )
 
 libraryDependencies ++= Seq(
