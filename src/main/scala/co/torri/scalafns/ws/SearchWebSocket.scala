@@ -8,7 +8,6 @@ import grizzled.slf4j._
 import co.torri.jsonr._
 
 
-//val librarian = registry.actorFor[Librarian] //just to remember that this thing works
 class SearchWebSocket(_librarian: ActorRef) extends WebSocketHandler with Logging {
 
   override def onOpen(c: WebSocketConnection) = {}

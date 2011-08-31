@@ -5,30 +5,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-  <listener>
-    <listener-class>co.torri.scalafns.ws.WebSocketLoader</listener-class>
-  </listener>
-	
-	<context-param>
-    <param-name>websocketSearchService</param-name>
-    <param-value>/search</param-value>
-	</context-param>
-	
-	<context-param>
-    <param-name>websocketSearchServicePort</param-name>
-    <param-value>8123</param-value>
-	</context-param>
-	
-	<!-- <listener>
-    <listener-class>co.torri.scalafns.library.LibrarianLoader</listener-class>
-  </listener> -->
-
-	<!-- <listener>
-    <listener-class>co.torri.scalafns.logger.LoggerLoader</listener-class>
-  </listener> -->
-
 	<listener>
-    <listener-class>co.torri.scalafns.Loader</listener-class>
+    <listener-class>co.torri.scalafns.AppLoader</listener-class>
   </listener>
 
 	<filter>
