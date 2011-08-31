@@ -27,12 +27,12 @@ class SearchWebSocket(_librarian: ActorRef) extends WebSocketHandler with Loggin
 
 }
 
-case class WebResult(query: String, hits: Int, files: List[String])
+case class WebResult(query: String, hits: Int, files: Seq[String])
 
 object WebResult {
   
   def apply(r: ChatLogSearchResult): WebResult =
-    apply(r.query, r.totalHits, r.chatLogs.toList.map{ log =>
+    apply(r.query, r.totalHits, r.chatLogs.map{ log =>
       val path = log.uri.getPath
       path.substring(path.indexOf("/log/irc"))
     })

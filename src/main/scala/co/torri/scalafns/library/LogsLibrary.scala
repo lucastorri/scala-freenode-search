@@ -42,7 +42,7 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
     val docs = results.scoreDocs.map(r => _document2ChatLog(searcher.doc(r.doc)))
     searcher.close
 
-    ChatLogSearchResult(query, docs.toSet, results.totalHits)
+    ChatLogSearchResult(query, docs, results.totalHits)
     
   } catch { case e => logger.error("Error when searching for " + query, e); ChatLogSearchResult(query) }
   
@@ -89,11 +89,11 @@ case class ChatLog(val uri: URI) {
 
 }
 
-case class ChatLogSearchResult(query: String, chatLogs: Set[ChatLog], totalHits: Int)
+case class ChatLogSearchResult(query: String, chatLogs: Seq[ChatLog], totalHits: Int)
 
 object ChatLogSearchResult {
   
   def apply(query: String): ChatLogSearchResult =
-    apply(query, Set[ChatLog](), 0)
+    apply(query, Seq[ChatLog](), 0)
   
 }
