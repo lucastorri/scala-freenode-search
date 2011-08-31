@@ -23,14 +23,14 @@ class IRCProtocolHandlerTest extends ScalaFNSTest {
 
   "when receiving a new message" should {
     "not forward invalid messages" in new messageContext {
-      irc.onMessage("#ruby", "martin: hello world")
-      irc.onMessage("#scala", "martin: hello world", true)
+      irc.onMessage("#ruby", "martin", "hello world")
+      irc.onMessage("#scala", "martin", "hello world", true)
       within(IRCProtocolHandlerTest.timeout) {
         received must be equalTo(false)
       }
     }
     "forward valid messages to the actor" in new messageContext {
-      irc.onMessage("#scala", "martin: hello world")
+      irc.onMessage("#scala", "martin", "hello world")
       within(IRCProtocolHandlerTest.timeout) {
         received must be equalTo(true)
       }

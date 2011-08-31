@@ -11,6 +11,7 @@ class Librarian(_library: ChatLogsLibrary) extends Actor {
 
   def receive = {
     case AddLog(uri) => _library addLog ChatLog(uri)
+    case Search(query) => self reply(_library searchLogs query)
     case _ => {}
   }
 
@@ -18,4 +19,4 @@ class Librarian(_library: ChatLogsLibrary) extends Actor {
 
 case class AddLog(logURI: URI)
 
-case class Search(expression: String)
+case class Search(query: String)

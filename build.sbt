@@ -8,6 +8,8 @@ scalaVersion := "2.9.0-1"
 
 seq(webSettings :_*)
 
+seq(sbtassembly.Plugin.assemblySettings: _*)
+
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % "2.0.0-SNAPSHOT",
   "org.scalatra" %% "scalatra-scalate" % "2.0.0-SNAPSHOT",

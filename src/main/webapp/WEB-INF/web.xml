@@ -19,12 +19,16 @@
     <param-value>8123</param-value>
 	</context-param>
 	
-	<listener>
+	<!-- <listener>
     <listener-class>co.torri.scalafns.library.LibrarianLoader</listener-class>
-  </listener>
+  </listener> -->
+
+	<!-- <listener>
+    <listener-class>co.torri.scalafns.logger.LoggerLoader</listener-class>
+  </listener> -->
 
 	<listener>
-    <listener-class>co.torri.scalafns.logger.LoggerLoader</listener-class>
+    <listener-class>co.torri.scalafns.Loader</listener-class>
   </listener>
 
 	<filter>
