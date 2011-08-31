@@ -42,7 +42,7 @@ case class MessageLogger(dir: File) extends Logging {
   
   private val _logFileFormat = "%s_%s.log"
   private val _logFileDateFormat = new SimpleDateFormat("yyyy-MM-dd")
-  private val _logException: PartialFunction[Throwable, Unit] = { case e => logger.error("Error", e) }
+  private val _logException: PartialFunction[Throwable, Unit] = { case e => logger.error("Error logging chat messages", e) }
   private var _currentFile: (String, Option[PrintWriter]) = ("", None)
   
   private def _logFileFor(msg: IRCMessage) =
@@ -60,7 +60,6 @@ case class MessageLogger(dir: File) extends Logging {
       }
       try _currentFile = (filename, Some(new PrintWriter(filename)))
       catch _logException
-      logger.warn("openning logger for " + filename)
     }
     _currentFile._2.get
   }

@@ -24,26 +24,27 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
   private val _queryParser = _factory.newQueryParser(_contentField)
 
   def addLog(log: ChatLog) = try {
-    logger.warn("Indexing " + log.uri.getPath)
+    
     val writer = _factory.newWriter
     writer.addDocument(log)
     writer.close
+    
   } catch { case e => logger.error("Error when indexing", e)}
 
   def searchLogs(query: String): ChatLogSearchResult = try {
-    logger.warn("Searching for " + query)
+    
     if (!_factory.indexExists) {
-      logger.error("Index doesn't exist")
+      logger.warn("Index doesn't exist")
       return ChatLogSearchResult(query)
     }
     val searcher = _factory.newSearcher
     val results = searcher.search(_queryParser.parse(query), _searchLimit)
     val docs = results.scoreDocs.map(r => _document2ChatLog(searcher.doc(r.doc)))
     searcher.close
-    logger.info("found:")
-    docs.foreach(d => logger.info(d.uri.getPath))
+
     ChatLogSearchResult(query, docs.toSet, results.totalHits)
-  } catch { case e => logger.error("Error when searching", e); ChatLogSearchResult(query)}
+    
+  } catch { case e => logger.error("Error when searching for " + query, e); ChatLogSearchResult(query)}
   
   private implicit def _document2ChatLog(d: Document): ChatLog =
     ChatLog(new URI(d.get(_identifierField)))
