@@ -29,7 +29,7 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
     writer.addDocument(log)
     writer.close
     
-  } catch { case e => logger.error("Error when indexing", e)}
+  } catch { case e => logger.error("Error when indexing", e) }
 
   def searchLogs(query: String): ChatLogSearchResult = try {
     
@@ -44,7 +44,7 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
 
     ChatLogSearchResult(query, docs.toSet, results.totalHits)
     
-  } catch { case e => logger.error("Error when searching for " + query, e); ChatLogSearchResult(query)}
+  } catch { case e => logger.error("Error when searching for " + query, e); ChatLogSearchResult(query) }
   
   private implicit def _document2ChatLog(d: Document): ChatLog =
     ChatLog(new URI(d.get(_identifierField)))
