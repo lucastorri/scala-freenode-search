@@ -39,7 +39,7 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
     }
     val searcher = _factory.newSearcher
     val results = searcher.search(_queryParser.parse(query), _searchLimit)
-    val docs = results.scoreDocs.map(r => _document2ChatLog(searcher.doc(r.doc)))
+    val docs = results.scoreDocs.map(_.doc).distinct.map(docId => _document2ChatLog(searcher.doc(docId)))
     searcher.close
 
     ChatLogSearchResult(query, docs, results.totalHits)
