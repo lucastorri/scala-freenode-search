@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
   "se.scalablesolutions.akka" % "akka-remote" % "1.1.3",
   "org.slf4j" % "slf4j-api" % "1.6.1",
   "ch.qos.logback" % "logback-classic" % "0.9.29",
-  "org.streum" % "configrity_2.9.0" % "0.7.0"
+  "org.streum" % "configrity_2.9.0" % "0.7.0",
+  "org.apache.yoko" % "yoko-spec-corba" % "1.3"
 )
 
 libraryDependencies ++= Seq(
@@ -39,3 +40,11 @@ resolvers += "Scala Tools Snapshots" at "http://scala-tools.org/repo-snapshots/"
 resolvers += "GuiceyFruit Release Repository" at "http://guiceyfruit.googlecode.com/svn/repo/releases/"
 
 unmanagedBase <<= baseDirectory { base => base / "custom_lib" }
+
+seq(scalateSettings:_*)
+
+libraryDependencies += "com.mojolly.scalate" %% "scalate-generator" % "0.0.1" % "scalate"
+
+scalateTemplateDirectory in Compile <<= (baseDirectory) {
+  (basedir) => new File(basedir, "src/main/webapp/WEB-INF")
+}

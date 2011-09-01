@@ -6,3 +6,5 @@ resolvers ++= Seq(
 libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % ("0.1.0-"+v))
 
 libraryDependencies <+= (sbtVersion) { sv => "com.eed3si9n" %% "sbt-assembly" % ("sbt" + sv + "_0.6") }
+
+libraryDependencies += "com.mojolly.scalate" %% "xsbt-scalate-generator" % "0.0.1"

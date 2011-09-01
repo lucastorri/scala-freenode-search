@@ -4,6 +4,8 @@ import scalate.ScalateSupport
 
 class MyScalatraFilter extends ScalatraFilter with ScalateSupport {
   
+  override def isScalateErrorPageEnabled = false
+  
   get("/") {
     <html>
       <body>
