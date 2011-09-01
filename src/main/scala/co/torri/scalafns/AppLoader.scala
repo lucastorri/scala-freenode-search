@@ -24,16 +24,14 @@ class AppLoader extends ServletContextListener with Logging {
   
   override def contextInitialized(e: ServletContextEvent): Unit = try {
     
-    println("hello world")
     val _config =
       try Configuration.load(fromURL(getClass.getClassLoader.getResource("scala-freenode-search.conf")))
       catch {
         case e => logger.error("Could not load conf file", e); return
       }
 
-    val logDir = new File (e.getServletContext.getResource(|).getFile + _config[String]("logbot.outputfolder"))
-    val indexDir = new File(e.getServletContext.getResource(|).getFile + _config[String]("librarian.indexfolder"))
-
+    val logDir = new File (System.getenv("OPENSHIFT_DATA_DIR") + _config[String]("logbot.outputfolder"))
+    val indexDir = new File(System.getenv("OPENSHIFT_DATA_DIR") + _config[String]("librarian.indexfolder"))
     val websocketService =  _config[String]("websocket.searchservice")
     val websocketPort = _config[Int]("websocket.port")
     val ircServer = _config[String]("logbot.server")
