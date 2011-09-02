@@ -30,7 +30,7 @@ class LogsLibraryTest extends ScalaFNSTest {
       
       library.addLog(log)
       
-      there was one (writer).addDocument(aDocumentWith(docURI, docContent))
+      there was one (writer).updateDocument(any[Term], aDocumentWith(docURI, docContent))
     }
     
     "search the lucene index" in new normalContext {

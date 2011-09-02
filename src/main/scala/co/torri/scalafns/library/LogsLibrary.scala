@@ -27,7 +27,7 @@ class ChatLogsLibrary(_factory: IndexFactory) extends Logging {
     
     //XXX must check first if the document doesn't exist
     val writer = _factory.newWriter
-    writer.addDocument(log)
+    writer.updateDocument(new Term(_contentField), log)
     writer.close
     
   } catch { case e => logger.error("Error when indexing", e) }
