@@ -1,0 +1,77 @@
+<html>
+
+  <head>
+    <title>Freenode Search</title>
+    <link rel="stylesheet" href="bootstrap-1.1.0.min.css" rel="stylesheet" >
+    <script src="jquery-1.6.2.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+
+        var wsUri = "ws://localhost:8123/search";
+        var connectToServer = function () {
+          ws = new WebSocket(wsUri);
+          ws.onopen = function(evt) {};
+          ws.onclose = function(evt) {};
+          ws.onmessage = function(msg) {
+            $(".result").remove();
+
+            var result = JSON.parse(msg.data);
+            console.log(result);
+
+            result.files.forEach(function(f) {
+              $('<li/>', {
+                  'class': 'prettyprint result',
+                  href: f,
+                  text: f
+              }).appendTo('#searchresults');
+            });
+
+          };
+          ws.onerror = function(evt) {};
+          return ws;
+        }
+
+        var queryField = $("#q");
+        var searchTimeout = 0;
+        var ws = connectToServer();
+        var lastSearch;
+
+        var search = function() {
+          lastSearch = queryField[0].value.trim();
+          ws.send(lastSearch);
+        }
+
+        queryField.keyup(function() {
+          clearTimeout(searchTimeout);
+          lastSearch !== this.value && 
+                  this.value.trim() &&
+                  (searchTimeout = setTimeout(search, 500));
+        });
+
+      });
+    </script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container fixed">
+          <h3><a href="#">Freenode Search</a></h3>
+          <form>
+            <input id="q" type="text" placeholder="Search" style="height: 28px;">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 60px">
+      <div class="row">
+        <ul id="searchresults">
+        </ul>
+      </div>
+    </div>
+
+  </body>
+
+</html>
